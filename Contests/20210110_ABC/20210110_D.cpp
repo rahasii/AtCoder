@@ -18,9 +18,5 @@ int main()
         // services.at(i) = service;
     }
 
-
-
-
-
     return 0;
 }
