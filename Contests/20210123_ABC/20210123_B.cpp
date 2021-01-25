@@ -1,20 +1,20 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
 
-int main()
-{
-    int N = 0, X = 0, alc = 0, count = -1;
-    cin >> N >> X;
-    for (int i = 0; i < N; i++)
-    {
-        int a = 0, b = 0;
-        cin >> a >> b;
-
-        alc += a * b ;
-        if(X * 100 < alc){
-            count = i + 1;
-            break;
-        }
-    }
-    cout << count << endl;
+int main(){
+	int n,x;
+	scanf("%d%d",&n,&x);
+	int sum=0;
+	for(int i=0;i<n;i++){
+		int v,p;
+		scanf("%d%d",&v,&p);
+        //Pは%だからv*p/100としたくなるところ
+        //少数の問題を生むため合えて/100しない
+		sum+=v*p;
+		if(sum>x*100){// p/100しなかったのをここで調整
+            //「何回目で超えるか」なので超えた時にreturnでよかった
+			printf("%d\n",i+1);
+			return 0;
+		}
+	}
+	puts("-1");
 }
