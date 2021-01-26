@@ -17,10 +17,7 @@ int sumDigitNumber(int number)
 
 int main()
 {
-    int limit;
-    int start;
-    int end;
-    int result;
+    int limit = 0, start = 0, end = 0, result = 0;
     cin >> limit >> start >> end;
 
     for (int i = 1; i <= limit; i++)
