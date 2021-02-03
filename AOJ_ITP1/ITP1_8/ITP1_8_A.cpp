@@ -23,6 +23,7 @@ string toggle(string s)
 int main()
 {
     std::string s;
+    //行で受け取る
     getline(cin, s);
     cout << toggle(s) << endl;
 }
