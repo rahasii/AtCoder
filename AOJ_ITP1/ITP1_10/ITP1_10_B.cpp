@@ -12,7 +12,7 @@ int main()
     S = (a * b * sin((M_PI / 180) * C)) / 2.0;
     cout << printf("%.5f", S) << endl;
     // 余弦定理
-    L = (a * a) + (b * b) - 2 * a * b * cos(M_PI * C / 180);
+    L = (a * a) + (b * b) - 2 * a * b * cos((M_PI / 180) * C);
     L = sqrt(L);
     cout << printf("%.5f", L + a + b) << endl;
     // 高さ = 2 * 面積 / 底辺
