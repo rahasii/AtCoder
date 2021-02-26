@@ -24,6 +24,7 @@ int main()
     //     cin >> tmp_i;
     //     vector<int> tmp_s = s;
     //     s.push_back(tmp_i);
+            //配列の連結
     //     s.insert(s.end(), tmp_s.begin(), tmp_s.end());
     // }
     // int half = (s.size() - 1) / 2;
