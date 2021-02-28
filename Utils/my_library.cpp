@@ -6,6 +6,8 @@ using namespace std;
 #define endl "\n"
 //repマクロ
 #define rep(i, n) for (int i = 0; i < (n); ++i)
+//repマクロ 開始の値も指定するver
+#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
 using ll = long long;
 using P = pair<int, int>;
 
