@@ -2,7 +2,7 @@
 #ifdef LOCAL_DBG
 #define _GLIBCXX_DEBUG
 #endif
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 template <typename K, typename V>
