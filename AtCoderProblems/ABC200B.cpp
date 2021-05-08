@@ -145,24 +145,20 @@ int main() {
     dbg("time:", 1000 * clock() / CLOCKS_PER_SEC, "[ms]");
 #endif
 }
-void config::update() { precision = 1; }
+void config::update() { precision = 0; }
 
 void solve() {
-    in(double, n, x2, y2);
-    double max = 0.0;
-    rep(i, n) {
-        in(double, x1, y1);
-        double katamuki = (y2 - y1) / (x2 - x1);
-        // y = katamki * x + b;
-        // b = y-(katamki*x)
-        double b = y2 - (katamuki * x2);
-        
-        chmax(max, b);
+    // a,bをintで受け取る
+    in(ll, N);
+    in(int, K);
+    rep(i,K){
+        if(N % 200 == 0){
+            N = N / 200;
+        }else{
+            str sN = to_string(N);
+            N = stoll(sN + "200");
+        }
     }
-
-    if(max <= 0){
-        max = 0.0;
-    }
-    print(max);
+    print(N);
     return;
 }

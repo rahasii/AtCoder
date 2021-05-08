@@ -148,8 +148,15 @@ int main() {
 void config::update() { precision = 0; }
 
 void solve() {
-    // a,bをintで受け取る
-    in(double, N);
-    print(ceil(N / 100));
+    in(str, s);
+    int count = 0;
+    rep(i, s.size()) {
+        if (s[i] == 'Z') {
+            if (s[i + 1] == 'O' && s[i + 2] == 'N' && s[i + 3] == 'e') {
+                count++;
+            }
+        }
+    }
+    print(count);
     return;
 }

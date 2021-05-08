@@ -2,7 +2,7 @@
 #ifdef LOCAL_DBG
 #define _GLIBCXX_DEBUG
 #endif
-// #pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 template <typename K, typename V>
@@ -149,7 +149,29 @@ void config::update() { precision = 0; }
 
 void solve() {
     // a,bをintで受け取る
-    in(double, N);
-    print(ceil(N / 100));
+    in(ll, n);
+
+    vector<vll> v(1000);
+    rep(i, n) {
+        in(ll, tmp);
+        v[tmp % 200].push_back(tmp);
+    }
+
+    ll count = 0;
+    for (ll ai = 0; ai < 1000; ai++) {
+        ll amari_size = v[ai].size();
+        if (amari_size > 1) {
+            vll check = v[ai];
+            for (ll i = 0; i < amari_size; i++) {
+                for (ll j = i + 1; j < amari_size; j++) {
+                    if ((check[i] - check[j]) % 200 == 0) {
+                        count++;
+                    }
+                }
+            }
+        }
+    }
+
+    print(count);
     return;
 }
