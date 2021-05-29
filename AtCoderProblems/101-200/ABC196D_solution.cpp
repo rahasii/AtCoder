@@ -147,59 +147,52 @@ int main() {
 }
 void config::update() { precision = 0; }
 
-// 四方向への移動ベクトル
-const int dx[4] = {1, 0, -1, 0};
-const int dy[4] = {0, 1, 0, -1};
+int H, W, A, B;
 
-// 入力
-int H, W;
-vs field;
+bool used[16][16];
 
-// 探索
-bool seen[510][510];  // seen[h][w] := マス (h, w) が検知済みかどうか
-void dfs(int h, int w) {
-    seen[h][w] = true;
+int dfs(int x, int y, int a) {
 
-    // 四方向を探索
-    for (int dir = 0; dir < 4; ++dir) {
-        int nh = h + dx[dir];
-        int nw = w + dy[dir];
+    // 最後まで探索して、長方形のタイルを使い切っているなら、組合せを+1する
+    // a == 0 → true → 1
+    if (H == y) return a == 0;
 
-        // 場外アウトしたり、移動先が壁の場合はスルー
-        if (nh < 0 || nh >= H || nw < 0 || nw >= W) continue;
-        if (field[nh][nw] == '#') continue;
+    // 横の端まで行ったら次の行へ
+    if (W == x) return dfs(0, y + 1, a);
 
-        // 移動先が探索済みの場合
-        if (seen[nh][nw]) continue;
+    // 既に置かれているなら何もできないので、次のマスへ
+    if (used[y][x]) return dfs(x + 1, y, a);
 
-        // 再帰的に探索
-        dfs(nh, nw);
+    int res = 0;
+
+    // 縦置き
+    if (y + 1 < H && !used[y + 1][x] && 0 < a) {
+        // 探索中のマスとその下のマスをtrueにする
+        used[y][x] = used[y + 1][x] = true;
+        // 一つ右のマスの探索をする
+        res += dfs(x + 1, y, a - 1);
+        // 試した後には探索中のマスとその下のマスをfalseに戻して横置きを試しにいく
+        used[y][x] = used[y + 1][x] = false;
     }
+
+    // 横置き
+    if (x + 1 < W && !used[y][x + 1] && 0 < a) {
+        // 探索中のマスとその右のマスをtrueにする
+        used[y][x] = used[y][x + 1] = true;
+        // 一つ右のマスの探索をする
+        res += dfs(x + 1, y, a - 1);
+        // 試した後には探索中のマスとその下のマスをfalseに戻して何も置かないを試しにいく
+        used[y][x] = used[y][x + 1] = false;
+    }
+
+    // 何も置かない
+    res += dfs(x + 1, y, a);
+
+    return res;
 }
 
 void solve() {
-    // 入力受け取り
-    cin >> H >> W;
-    field.resize(H);
-    for (int h = 0; h < H; ++h) cin >> field[h];
-
-    // s と g のマスを特定する
-    int sh, sw, gh, gw;
-    for (int h = 0; h < H; ++h) {
-        for (int w = 0; w < W; ++w) {
-            if (field[h][w] == 's') sh = h, sw = w;
-            if (field[h][w] == 'g') gh = h, gw = w;
-        }
-    }
-
-    // 探索開始
-    memset(seen, 0, sizeof(seen));  // seen 配列全体を false に初期化
-    dfs(sh, sw);
-
-    // 結果
-    if (seen[gh][gw]) {
-        cout << "Yes" << endl;
-    } else {
-        cout << "No" << endl;
-    }
+    cin >> H >> W >> A >> B;
+    print(dfs(0, 0, A));
+    return;
 }

@@ -2,7 +2,7 @@
 #ifdef LOCAL_DBG
 #define _GLIBCXX_DEBUG
 #endif
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 template <typename K, typename V>
@@ -145,33 +145,32 @@ int main() {
     dbg("time:", 1000 * clock() / CLOCKS_PER_SEC, "[ms]");
 #endif
 }
-void config::update() { precision = 0; }
+void config::update() { precision = 1; }
 
 void solve() {
-    // a,bをintで受け取る
     in(ll, n);
 
-    vector<vll> v(1000);
-    rep(i, n) {
-        in(ll, tmp);
-        v[tmp % 200].push_back(tmp);
-    }
+    // 全部調べると時間が足りない
+    // ll limit = sqrt(n);
+    // _repi(i, 1, limit) {
+    //     if (n % i == 0) {
+    //         print(i);
+    //     }
+    // }
 
-    ll count = 0;
-    for (ll ai = 0; ai < 1000; ai++) {
-        ll amari_size = v[ai].size();
-        if (amari_size > 1) {
-            vll check = v[ai];
-            for (ll i = 0; i < amari_size; i++) {
-                for (ll j = i + 1; j < amari_size; j++) {
-                    if ((check[i] - check[j]) % 200 == 0) {
-                        count++;
-                    }
-                }
-            }
+    vector<long long> ret;
+
+    for (long long i = 1; i * i <= n; i++) {
+        if (n % i == 0) {
+            ret.push_back(i);
+            if (i * i != n) ret.push_back(n / i);
         }
     }
+    sort(ret.begin(), ret.end());
 
-    print(count);
+    rep(i,ret.size()){
+        print(ret[i]);
+    }
+    
     return;
 }
